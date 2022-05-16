@@ -1,28 +1,57 @@
+import { useState } from "react";
 import { Button } from "../button";
+import cn from "classnames";
+
 import "./pizzaBlock.scss"
 
-const PizzaBlock = () => {
+const PizzaBlock = ({ category, image, price, rating, sizes, name, type }) => {
+	const [taste, setTaste] = useState(type[0]);
+	const [size, setSize] = useState(0);
+
+	const tasteTypes = ['Тонкое', 'Традиционное'];
+
+	const selectTaste = (taste) => {
+		setTaste(taste);
+	}
+
+	const selectSize = (size) => {
+		setSize(size)
+	}
+
 	return (
 		<div className="pizza-block">
 			<img
 				className="pizza-block__image"
-				src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-				alt="Pizza"
+				src={image}
+				alt={name}
 			/>
-			<h4 className="pizza-block__title">Чизбургер-пицца</h4>
+			<h4 className="pizza-block__title">{name}</h4>
 			<div className="pizza-block__selector">
 				<ul>
-					<li className="active">тонкое</li>
-					<li>традиционное</li>
+					{type.map((item, index) => (
+						<li
+							className={cn({ ['active']: taste === item })}
+							key={index}
+							onClick={selectTaste.bind(this, item)}
+						>
+							{tasteTypes[item]}
+						</li>
+					))}
 				</ul>
 				<ul>
-					<li className="active">26 см.</li>
-					<li>30 см.</li>
-					<li>40 см.</li>
+					{sizes.map((item, index) => (
+						<li
+							className={cn({ ['active']: size === index })}
+							key={index}
+							onClick={selectSize.bind(this, index)}
+						>
+							{item}
+						</li>
+					))}
 				</ul>
 			</div>
 			<div className="pizza-block__bottom">
-				<div className="pizza-block__price">от 395 ₽</div>
+				<div className="pizza-block__price">от {price} ₽</div>
 				<Button className={"button--outline button--add"}>
 					<svg
 						width="12"

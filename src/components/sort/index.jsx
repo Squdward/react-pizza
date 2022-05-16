@@ -1,11 +1,20 @@
 import { useState } from "react";
+import cn from "classnames";
 import "./sort.scss";
 
 const Sort = () => {
+	const options = ['популярности', 'цене', 'алфавиту'];
 	const [open, setOpen] = useState(false);
+	const [option, setOption] = useState(options[0]);
+
 
 	const openPopup = () => {
 		setOpen(true);
+	}
+
+	const selectOption = (val) => {
+		setOption(val);
+		setOpen(false);
 	}
 
 	return (
@@ -24,15 +33,21 @@ const Sort = () => {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span>популярности</span>
+				<span>{option}</span>
 			</div>
-			{open &&<div className="sort__popup">
+			{open && <div className="sort__popup">
 				<ul>
-					<li className="active">популярности</li>
-					<li>цене</li>
-					<li>алфавиту</li>
+					{options.map((opt, index) => (
+						<li
+							className={cn({ ['active']: option === opt })}
+							onClick={selectOption.bind(this, opt)}
+							key={index}
+						>
+							{opt}
+						</li>
+					))}
 				</ul>
-			</div> }
+			</div>}
 		</div>
 	)
 }

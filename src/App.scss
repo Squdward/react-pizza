@@ -67,7 +67,11 @@ body {
 	}
 
 	&__items {
-		display: flex;
+		// display: flex;
+		display: grid;
+		// grid-template-columns: 280px 280px 280px;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-gap: 65px 35px;
 		flex-wrap: wrap;
 		justify-content: space-between;
 	}
@@ -112,7 +116,7 @@ body {
 			margin-right: 10px;
 			path {
 				stroke: $black;
-				stroke-width: 1.9;
+				strokewidth: 1.9;
 			}
 		}
 	}
@@ -300,7 +304,7 @@ body {
 					margin-right: 12px;
 					path {
 						fill: transparent;
-						stroke-width: 2;
+						strokewidth: 2;
 					}
 				}
 			}
