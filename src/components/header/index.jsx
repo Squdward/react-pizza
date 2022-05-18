@@ -1,9 +1,10 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../button";
 import logo from "./accets/pizza-logo.svg";
 import "./header.scss";
 
-const Header = () => {
+const Header = React.memo(() => {
 	return (
 		<div className="header">
 			<div className="container">
@@ -58,6 +59,6 @@ const Header = () => {
 			</div>
 		</div>
 	)
-}
+})
 
 export { Header }

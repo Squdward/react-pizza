@@ -1,8 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import cn from "classnames";
 import "./sort.scss";
 
-const Sort = ({ value, onClick, options }) => {
+const Sort = React.memo(({ value, onClick, options }) => {
 	const [open, setOpen] = useState(false);
 
 	const openPopup = () => {
@@ -47,6 +47,6 @@ const Sort = ({ value, onClick, options }) => {
 			</div>}
 		</div>
 	)
-}
+})
 
 export { Sort };
