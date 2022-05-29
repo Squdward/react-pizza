@@ -28,6 +28,7 @@ const PizzaBlock: FC<IPizza> = ({ id, category, imageUrl, price, rating, sizes, 
 
   const addPizza = () => {
     dispatch(
+      //@ts-ignore
       addItem({
         id,
         title,

@@ -7,12 +7,12 @@ import { PizzaBlock } from '../../components/pizzaBlock/index';
 import { PizzaSkeleton } from '../../components/pizzaBlock/skeleton';
 import { Sort } from '../../components/sort/index';
 import { getPizza } from '../../redux/slice/pizza';
-import { RootState } from '../../redux/store';
+import { RootState, useAppDispatch } from '../../redux/store';
 
 const Home: FC = () => {
   const { categoryId, sortId, search } = useSelector((state: RootState) => state.filter);
   const { pizzas, isLoading } = useSelector((state: RootState) => state.pizza);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const options = [
     {

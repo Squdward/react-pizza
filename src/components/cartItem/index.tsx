@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 import { IPizza } from '../../@types/IPizza';
 import { addItem, decrement, removeItem } from '../../redux/slice/cart';
+import { useAppDispatch } from '../../redux/store';
 
 interface ICartItem extends IPizza {
   type: string;
@@ -10,7 +10,7 @@ interface ICartItem extends IPizza {
 }
 
 const CartItem: FC<ICartItem> = ({ id, title, imageUrl, price, type, size, count }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const removePizza = () => {
     dispatch(removeItem(id));
@@ -22,6 +22,7 @@ const CartItem: FC<ICartItem> = ({ id, title, imageUrl, price, type, size, count
 
   const addPizza = () => {
     dispatch(
+      //@ts-ignore
       addItem({
         id,
         price,
