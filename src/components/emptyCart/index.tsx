@@ -25,4 +25,4 @@ const EmptyCart: FC = () => {
   );
 };
 
-export { EmptyCart };
+export default EmptyCart;

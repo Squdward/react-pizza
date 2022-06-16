@@ -1,16 +1,16 @@
 import { FC, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { IPizza } from '../../@types/IPizza';
-import { Categories } from '../../components/categories/index';
-import { Header } from '../../components/header/index';
-import { PizzaBlock } from '../../components/pizzaBlock/index';
-import { PizzaSkeleton } from '../../components/pizzaBlock/skeleton';
-import { Sort } from '../../components/sort/index';
 import { getPizza } from '../../redux/slice/pizza';
 import { RootState, useAppDispatch } from '../../redux/store';
+import ReactPaginate from 'react-paginate';
+import { changePageNumber } from '../../redux/slice/filter';
+import { Categories, Header, PizzaBlock, PizzaSkeleton, Sort } from '../../components';
 
 const Home: FC = () => {
-  const { categoryId, sortId, search } = useSelector((state: RootState) => state.filter);
+  const { categoryId, sortId, search, pageNumber } = useSelector(
+    (state: RootState) => state.filter,
+  );
   const { pizzas, isLoading } = useSelector((state: RootState) => state.pizza);
   const dispatch = useAppDispatch();
 
@@ -32,9 +32,10 @@ const Home: FC = () => {
   useEffect(() => {
     const categoryRequest: string = `${categoryId > 0 ? '' + categoryId : ''}`;
     const sortRequest: string = `${options[sortId].name}`;
+    const page: any = pageNumber;
 
-    dispatch(getPizza({ categoryRequest, sortRequest, search }));
-  }, [categoryId, sortId, search]);
+    dispatch(getPizza({ categoryRequest, sortRequest, search, page }));
+  }, [categoryId, sortId, search, pageNumber]);
 
   const skeleton = [1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => <PizzaSkeleton key={index} />);
 
@@ -55,6 +56,13 @@ const Home: FC = () => {
               {!isLoading &&
                 pizzas.map((pizza: IPizza) => <PizzaBlock {...pizza} key={pizza.id} />)}
             </div>
+            <ReactPaginate
+              pageCount={2}
+              className={'pagination'}
+              nextLabel={'>'}
+              previousLabel={'<'}
+              onPageChange={({ selected }) => dispatch(changePageNumber(selected + 1))}
+            />
           </div>
         </div>
       </div>
@@ -62,4 +70,4 @@ const Home: FC = () => {
   );
 };
 
-export { Home };
+export default Home;

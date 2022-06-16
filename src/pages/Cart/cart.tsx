@@ -1,8 +1,6 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CartItem } from '../../components/cartItem/index';
-import { EmptyCart } from '../../components/emptyCart/index';
-import { Header } from '../../components/header/index';
+import { CartItem, EmptyCart, Header } from '../../components';
 import { clearCart } from '../../redux/slice/cart';
 import { RootState } from '../../redux/store';
 import './cart.scss';
@@ -143,4 +141,4 @@ const Cart: FC = () => {
   );
 };
 
-export { Cart };
+export default Cart;

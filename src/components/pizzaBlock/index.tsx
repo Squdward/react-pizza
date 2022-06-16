@@ -88,4 +88,4 @@ const PizzaBlock: FC<IPizza> = ({ id, category, imageUrl, price, rating, sizes, 
   );
 };
 
-export { PizzaBlock };
+export default PizzaBlock;

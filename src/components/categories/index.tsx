@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import cn from 'classnames';
 import './categories.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,4 +31,4 @@ const Categories: FC = React.memo(() => {
   );
 });
 
-export { Categories };
+export default Categories;

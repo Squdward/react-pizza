@@ -67,4 +67,4 @@ const Header: FC = React.memo(() => {
   );
 });
 
-export { Header };
+export default Header;

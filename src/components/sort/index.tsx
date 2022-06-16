@@ -58,4 +58,4 @@ const Sort: React.FC<ISort> = React.memo(({ options }) => {
   );
 });
 
-export { Sort };
+export default Sort;

@@ -9,19 +9,30 @@ interface IPizzaSlice {
 
 export const getPizza = createAsyncThunk<IPizza[], Record<string, string>>(
   'pizza/fetch',
-  async ({ search, sortRequest, categoryRequest }) => {
-    const { data } = await axios.get<IPizza[]>(
-      'https://6282c8d492a6a5e46219b5d4.mockapi.io/pizzas',
-      {
-        params: {
-          title: search || null,
-          sortBy: sortRequest,
-          order: 'desc',
-          category: categoryRequest,
+  async ({ search, sortRequest, categoryRequest, page }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get<IPizza[]>(
+        'https://6282c8d492a6a5e46219b5d4.mockapi.io/pizzas',
+        {
+          params: {
+            page: page || 1,
+            limit: 6,
+            title: search || null,
+            sortBy: sortRequest,
+            order: 'desc',
+            category: categoryRequest,
+          },
         },
-      },
-    );
-    return data;
+      );
+
+      if (data.length === 0) {
+        throw new Error('Empty response');
+      }
+
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
   },
 );
 
@@ -37,11 +48,13 @@ export const pizza = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getPizza.pending, (state) => {
       state.isLoading = true;
-      state.pizzas = [];
     });
-
     builder.addCase(getPizza.fulfilled, (state, action) => {
       state.pizzas = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(getPizza.rejected, (state, action) => {
+      alert('произошла ошибка' + action.payload);
       state.isLoading = false;
     });
   },

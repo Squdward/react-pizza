@@ -108,4 +108,4 @@ const CartItem: FC<ICartItem> = ({ id, title, imageUrl, price, type, size, count
   );
 };
 
-export { CartItem };
+export default CartItem;
